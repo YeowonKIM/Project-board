@@ -48,10 +48,25 @@
 ## STEP 3   API 명세서 작성
 Method|URL|Request|Response
 |------|---|---|-----|
-|GET|	/api/posts|-||
-|GET|	/api/post/{id}|-||
-|POST| /api/post|{ "title" : "title"<br/> 
-,"content" : "content", "author" : "author","password" : "password"}||
-|PUT|	/api/post/{id}|{ "title2" : "title2", "content2" : "content2","author2" : "author2","password2" : "password2"}||
-|DELETE| /api/post/{id}|테스트3||
+|GET|	/api/posts|-|{{"createdAt": "작성일자”,<br/> "modifiedAt": "수정일자”, <br/> "id": 1, <br/> "title": "title1", <br/> "content": "content1",<br/>  "author": "author1"}, <br/> { "createdAt": "작성일자",<br/> "modifiedAt": "수정일자”,<br/> "id": 2,<br/> "title": "title",<br/>  "content": "content",<br/> "author": "author" } ...}|
+|GET|	/api/post/{id}|-|{{"createdAt": "작성일자”,<br/> "modifiedAt": "수정일자”, <br/> "id": 1, <br/> "title": "title2", <br/> "content": "content2",<br/>  "author": "author2"}, <br/> { "createdAt": "작성일자",<br/> "modifiedAt": "수정일자”,<br/> "id": 2,<br/> "title": "title",<br/>  "content": "content",<br/> "author": "author" } ...}|
+|POST| /api/post|{ "title" : "title,"<br/> "content" : "content","<br/>  "author" : "author","<br/> "password" : "password"}|{"createdAt": "작성일자”,<br/> "modifiedAt": "수정일자”, <br/> "id": 1, <br/> "title": "title1", <br/> "content": "content1",<br/>  "author": "author1"}|
+|PUT|	/api/post/{id}|{ "title2" : "new title","<br/> "content2" : "content2","<br/> "author2" : "new author","<br/> "password2" : "password"}|{"createdAt": "작성일자”,<br/> "modifiedAt": "수정일자”, <br/> "id": 1, <br/> "title2": "title2", <br/> "content2": "content2",<br/>  "author2": "author2"} |
+|DELETE| /api/post/{id}|{"password" : "password"}|{"success":true},|
 
+<br/><br/>
+
+## STEP 4  코드작성
+
+<br/><br/>
+
+ 
+### ⛔️ 중간에 발생한 오류
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbcVqAA%2FbtrYhaE2k60%2FXYdJDkBr2fhISAWZzGsQxk%2Fimg.png"  width="700" height="100">
+<br/>
+
+### 💡 해결
+
+1) org.springframework.transaction.annotation.Transactional   :  옵션을 허용(readonly=true? false) 가능
+2) javax.transaction.Transactional :  옵션을 허용하지 않음. <br/>
+    => 1번으로 다시 import하니 문제가 해결 되었다.
